@@ -1,0 +1,31 @@
+[[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+depends = 'deoplete.nvim'
+on_ft = ['rust', 'vue']
+build = './install.sh'
+hook_source = '''
+set hidden
+let g:LanguageClient_serverCommands = {
+    \ 'vue': ['vls'],
+    \ 'go': ['go-langserver'],
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ }
+let g:LanguageClient_autoStart = 1
+'''
+
+[[plugins]]
+repo = 'ayu-theme/ayu-vim'
+hook_add = '''
+"let ayucolor="light"
+"let ayucolor="dark"
+let ayucolor="mirage"
+
+colorscheme ayu
+'''
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+
+[[plugins]]
+repo = 'fatih/vim-go'
+
