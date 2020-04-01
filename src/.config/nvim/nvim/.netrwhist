@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =6
+let g:netrw_dirhist_6='/home/tatikaze/Desktop/Oinas'
+let g:netrw_dirhist_5='/home/tatikaze/Desktop/Oinas/components'
+let g:netrw_dirhist_4='/home/tatikaze/.config/polybar'
+let g:netrw_dirhist_3='/boot/EFI/refind'
+let g:netrw_dirhist_2='/home/tatikaze/.ghq/github.com/tatikaze/oikake_narse_frontend/src/pages'
+let g:netrw_dirhist_1='/home/tatikaze/.ghq/github.com/s10akir/note.mojamoja.work/src/views'

@@ -1,0 +1,26 @@
+[[plugins]]
+repo = 'dense-analysis/ale'
+hook_add = '''
+let g:ale_sign_column_always = 1
+'''
+
+[[plugins]]
+repo = 'prettier/vim-prettier'
+
+[[plugins]]
+repo = 'sjl/badwolf'
+hook_add = 'colorscheme badwolf'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+
+[[plugins]]
+repo = 'posva/vim-vue'
+hook_add = 'autocmd FileType vue syntax sync fromstart'
+
+ [[plugins]]
+repo = 'Shougo/deoplete.nvim'
+hook_add = '''
+let g:deoplete#enable_at_startup=1
+let g:deoplete#auto_completion_start_length=1
+'''
