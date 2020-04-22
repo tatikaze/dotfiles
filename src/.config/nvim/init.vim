@@ -53,45 +53,27 @@ if &compatible
 endif
 
 " Required:
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=/home/tatikaze/.cache/dein/repos/github.com/Shougo/dein.vim
 
 " Required:
-if dein#load_state('~/.cache/dein')
-  call dein#begin('~/.cache/dein')
+if dein#load_state('/home/tatikaze/.cache/dein')
+  call dein#begin('/home/tatikaze/.cache/dein')
 
   " Let dein manage dein
   " Required:
-  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('/home/tatikaze/.cache/dein/repos/github.com/Shougo/dein.vim')
 
   " Add or remove your plugins here like this:
-  call dein#add('Shougo/neosnippet.vim')
-  call dein#add('Shougo/neosnippet-snippets')
-  call dein#add('w0rp/ale')
-  call dein#add('Shougo/deoplete.nvim')
-  call dein#add('vim-airline/vim-airline')
-  call dein#add('miyakogi/seiya.vim')
-  call dein#add('ekalinin/Dockerfile.vim')
-  call dein#add('tomasr/molokai')
-  call dein#add('tpope/vim-surround')
-  call dein#add('leafgarland/typescript-vim')
-  call dein#add('posva/vim-vue')
-  call dein#add('airblade/vim-gitgutter')
-  call dein#add('prettier/vim-prettier')
-  call dein#add('fatih/vim-go')
-  call dein#add('ngmy/vim-rubocop')
-  call dein#add('vim-scripts/fcitx.vim')
-"  call dein#add('clausreinke/typescript-tools')
-
-" nyaovim
-  call dein#add("rhysd/nyaovim-mini-browser")
-
-  call dein#load_toml('~/.config/nvim/dein.toml', {'lazy': 0})  
+  call dein#add('prabirshrestha/async.vim')
+  call dein#add('prabirshrestha/asyncomplete.vim')
+  call dein#add('prabirshrestha/asyncomplete-lsp.vim')
+  call dein#add('prabirshrestha/vim-lsp')
+  call dein#add('mattn/vim-lsp-settings')
 
   " Required:
   call dein#end()
   call dein#save_state()
 endif
-
 
 " Required:
 filetype plugin indent on
@@ -109,6 +91,7 @@ let g:dein#auto_recache = 1
 
 " 以下プラグインロード後に行う設定
 
+let g:lsp_settings_servers_dir = '/home/tatikaze/.local/share/vim-lsp-settings-set/servers'
 " 補完関連
 let g:neocomplete#enable_at_startup=1
 let g:neocomplete#enable_smart_case=1
@@ -116,14 +99,8 @@ let g:neocomplete#min_keyword_length=1
 let g:neocomplete#auto_completion_start_length=1
 let g:deoplete#enable_at_startup=1
 let g:deoplete#auto_completion_start_length=0
-imap <expr><TAB> pumvisible() ? "\<C-n>" : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>") 
-imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-imap <expr><CR> neosnippet#expandable() ? "<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "<C-y>" : "<CR>"
 
 set termguicolors
-
-" Vueだけファイルの途中でハイライトが消えるので保存されてる
-autocmd FileType vue syntax sync fromstart
 
 let g:ale_sign_column_always = 1
 
