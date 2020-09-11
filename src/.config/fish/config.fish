@@ -22,6 +22,12 @@ end
 alias cat='batcat'
 alias ls='exa --git -I "node_modules"'
 
+alias stu='git status'
+alias add='git add'
+alias commit='git commit'
+alias branch='git branch'
+alias push='git push'
+
 # ghq内部のリポジトリをfzfで選択、移動
 function select_ghq_repository
 	set ghq_path (ghq list | fzf --preview "cat --color=always --style=header,grid --line-range :80 (ghq root)/{}/README.*")
