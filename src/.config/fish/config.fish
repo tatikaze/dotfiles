@@ -1,23 +1,46 @@
-set fish_theme agnoster
+# WSL2環境ではルートディレクトリがwindows側になってしまう
+cd
 
-# automatic start tmux
-if [[ ! -n $TMUX ]]; then
-  # get the IDs
-  ID="`tmux list-sessions`"
-  if [[ -z "$ID" ]]; then
-    #tmux new-session && exit
-    ID="(NO SESSIONS)"
-  fi
-  create_new_session="Create New Session"
-  ID="${create_new_session}\n$ID"
-  ID="`echo $ID | fzf | cut -d: -f1`"
-  if [[ "$ID" = "${create_new_session}" ]]; then
-    tmux new-session && exit
-  elif [[ -n "$ID" ]]; then
-    tmux attach-session -t "$ID" && exit
-  else
-    # Start terminal normally
-  fi
-fi
+# golang
+set -x PATH /usr/local/bin $PATH
+set -x GOPATH $HOME/.go
+set -x PATH $PATH $GOPATH/bin
 
+# rust
+set -x CARGOPATH $HOME/.cargo
+set -x PATH $PATH $CARGOPATH/bin
 
+# npm
+set -x NPMPATH $HOME/.npm-global
+set -x PATH $PATH $NPMPATH/bin
+
+# tmux の自動起動
+if test -z $TMUX
+  tmux new-session
+end
+
+alias cat='batcat'
+alias ls='exa --git -I "node_modules"'
+
+alias stu='git status'
+alias add='git add'
+alias commit='git commit'
+alias branch='git branch'
+alias push='git push'
+
+# ghq内部のリポジトリをfzfで選択、移動
+function select_ghq_repository
+	set ghq_path (ghq list | fzf --preview "cat --color=always --style=header,grid --line-range :80 (ghq root)/{}/README.*")
+	set repo_path (ghq root)"/"$ghq_path | echo ""
+	cd $repo_path
+	commandline -f repaint
+end
+
+function exa_flex_tree
+	ls -l --tree --level=$argv
+end
+
+bind \cg 'select_ghq_repository'
+alias tre='exa_flex_tree'
+
+export LSCOLORS=Gxfxcxdxbxegedabagacad
