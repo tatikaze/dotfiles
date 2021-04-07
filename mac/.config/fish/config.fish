@@ -48,6 +48,14 @@ function exa_flex_tree
 	ls -l --tree --level=$argv
 end
 
+function pjr
+	while ! -e .git 
+		if pwd == $HOME
+			cd ..
+		fi
+	end
+end
+
 bind \cg 'select_ghq_repository'
 alias tre='exa_flex_tree'
 
