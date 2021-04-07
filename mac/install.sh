@@ -7,11 +7,6 @@ fi
 echo "Please install Cica font install"
 
 echo "Please brew install list:"
-# tmux install
-if ! command -v tmux &> /dev/null; then
-	echo "  tmux"
-fi
-
 # fish install
 if command -v fish &> /dev/null; then
 	if [[ ! -e "$HOME/.config/fish/functions/fisher.fish" ]] ; then
@@ -25,9 +20,26 @@ else
 	echo "    2. run 'chsh -s $(which fish)'"
 fi
 
+# tmux install
+if ! command -v tmux &> /dev/null; then
+	echo "  tmux"
+fi
+
 # exa install
 if ! command -v exa &> /dev/null; then
 	echo "  exa"
+fi
+
+# tig install
+if ! command -v tig &> /dev/null; then
+	echo "  tig"
+fi
+
+if ! command -v ghq &> /dev/null; then
+	echo "  ghq"
+else
+	fisher install jethrokuan/z
+	git config --global ghq.root ~/.ghq 
 fi
 
 sh ./confinit.sh
