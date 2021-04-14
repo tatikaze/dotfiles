@@ -13,7 +13,12 @@ set -x PATH /usr/local/bin $PATH
 ## npm
 #set -x NPMPATH $HOME/.npm-global
 #set -x PATH $PATH $NPMPATH/bin
+## yarn
+set -x PATH $PATH (yarn global bin)
 #
+#
+set -x HOMEBREW /opt/homebrew
+set -x PATH $PATH $HOMEBREW/bin
 
 # tmux の自動起動
 if test -z $TMUX
@@ -48,15 +53,16 @@ function exa_flex_tree
 	ls -l --tree --level=$argv
 end
 
-function pjr
-	while ! -e .git 
-		if pwd == $HOME
+function cd_project_root
+	##	while ! [ -d .git || test $PWD = $HOME ]
+	while ! test -d .git -o $PWD = $HOME
 			cd ..
-		fi
 	end
 end
 
 bind \cg 'select_ghq_repository'
 alias tre='exa_flex_tree'
+alias pjr='cd_project_root'
+
 
 #export LSCOLORS=Gxfxcxdxbxegedabagacad
