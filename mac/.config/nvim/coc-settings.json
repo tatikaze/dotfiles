@@ -1,0 +1,31 @@
+{
+  "yaml.customTags": [
+    "!Ref",
+    "!Sub scalar",
+    "!Sub sequence",
+    "!Join sequence",
+    "!FindInMap sequence",
+    "!GetAtt scalar",
+    "!GetAtt sequence",
+    "!Base64 mapping",
+    "!GetAZs",
+    "!Select scalar",
+    "!Select sequence",
+    "!Split sequence",
+    "!ImportValue",
+    "!Condition",
+    "!Equals sequence",
+    "!And",
+    "!If",
+    "!Not",
+    "!Or"
+  ],
+  "eslint.autoFixOnSave": true,
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "markdownlint.filetypes": ["md", "mdx"]
+}

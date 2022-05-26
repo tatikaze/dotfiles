@@ -1,106 +1,65 @@
-" visual
 set number
-set noerrorbells
-set showmatch matchtime=1
-set cinoptions+=:0
-set cmdheight=2
-set laststatus=2
-set showcmd
-set display=lastline
-set list
-set showmatch
-set cursorline
-set autoread
+set clipboard=unnamed
+set encoding=UTF-8
 
+call plug#begin('~/.vim/plugged')
 
-" search
-set ignorecase
-set smartcase
-set wrapscan
-set incsearch
-set hlsearch
+" global settings
+Plug 'Shougo/ddc.vim'
+Plug 'vim-denops/denops.vim'
+Plug 'editorconfig/editorconfig-vim'
 
-" edit
-inoremap jj <Esc>
-noremap <Esc><Esc> :noh<CR>
-noremap ; :
-set clipboard+=unnamedplus
-set expandtab
-set shiftwidth=2
-set tabstop=2
-set softtabstop=2
-set smartindent
+" coc
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+xmap <c-f>  <Plug>(coc-format)
+nmap <c-f>  <Plug>(coc-format)
+nnoremap <nowait><expr> <C-n> coc#float#has_scroll() ? coc#float#scroll(1) : "\<c-n>"
+nnoremap <nowait><expr> <C-p> coc#float#has_scroll() ? coc#float#scroll(0) : "\<c-p>"
 
-" chigiri of korosazu
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
+" colorschemes
+Plug 'rakr/vim-one'
+Plug 'cocopon/iceberg.vim'
+Plug 'sickill/vim-monokai'
 
-" エスケープシーケンスの待機時間
-set ttimeoutlen=10
+" airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ryanoasis/vim-devicons'
+let g:airline_theme = 'papercolor'               " テーマの指定
+let g:airline#extensions#tabline#enabled = 1 " タブラインを表示
+let g:airline_powerline_fonts = 1            " Powerline Fontsを利用
 
-"autocmd InsertEnter   * !ogg123 -q -d pulse ~/tmp/random/chestopen.ogg &
-"autocmd InsertLeave   * !ogg123 -q -d pulse ~/tmp/random/chestclosed.ogg &
-"autocmd InsertCharPre * !ogg123 -q -d pulse ~/tmp/step/stone1.ogg &
-"autocmd BufWrite      * !ogg123 -q -d pulse ~/tmp/random/levelup.ogg &
-"autocmd VimLeave      * !ogg123 -q -d pulse ~/tmp/random/explode1.ogg &
+" fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
+" common
+Plug 'editorconfig/editorconfig-vim'
+Plug 'nathanaelkane/vim-indent-guides'
 
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
-endif
+" JS & TS 
+" REQUIRED: Add a syntax file. YATS is the best
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'branch': 'release/0.x'
+  \ }
 
-" Required:
-set runtimepath+=/home/tatikaze/.cache/dein/repos/github.com/Shougo/dein.vim
+Plug 'pantharshit00/vim-prisma'
+call plug#end()
 
-" Required:
-if dein#load_state('/home/tatikaze/.cache/dein')
-  call dein#begin('/home/tatikaze/.cache/dein')
+colorscheme iceberg
 
-  " Let dein manage dein
-  " Required:
-  call dein#add('/home/tatikaze/.cache/dein/repos/github.com/Shougo/dein.vim')
+" Alias
+cnoreabbrev idt IndentGuidesToggle
 
-  " Add or remove your plugins here like this:
-  call dein#add('prabirshrestha/async.vim')
-  call dein#add('prabirshrestha/asyncomplete.vim')
-  call dein#add('prabirshrestha/asyncomplete-lsp.vim')
-  call dein#add('prabirshrestha/vim-lsp')
-  call dein#add('mattn/vim-lsp-settings')
-
-  " Required:
-  call dein#end()
-  call dein#save_state()
-endif
-
-" Required:
-filetype plugin indent on
-syntax enable
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
-
-let g:dein#auto_recache = 1
-
-"End dein Scripts-------------------------
-
-
-" 以下プラグインロード後に行う設定
-
-let g:lsp_settings_servers_dir = '/home/tatikaze/.local/share/vim-lsp-settings-set/servers'
-" 補完関連
-let g:neocomplete#enable_at_startup=1
-let g:neocomplete#enable_smart_case=1
-let g:neocomplete#min_keyword_length=1
-let g:neocomplete#auto_completion_start_length=1
-let g:deoplete#enable_at_startup=1
-let g:deoplete#auto_completion_start_length=0
-
-set termguicolors
-
-let g:ale_sign_column_always = 1
-
+" 背景透過
+highlight Normal ctermbg=NONE guibg=NONE
+highlight NonText ctermbg=NONE guibg=NONE
+highlight LineNr ctermbg=NONE guibg=NONE
+highlight Folded ctermbg=NONE guibg=NONE
+highlight EndOfBuffer ctermbg=NONE guibg=NONE
