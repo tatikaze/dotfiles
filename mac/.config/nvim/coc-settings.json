@@ -18,7 +18,8 @@
     "!And",
     "!If",
     "!Not",
-    "!Or"
+    "!Or",
+    "name"
   ],
   "eslint.autoFixOnSave": true,
   "eslint.filetypes": [

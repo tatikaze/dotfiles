@@ -8,14 +8,30 @@ call plug#begin('~/.vim/plugged')
 Plug 'Shougo/ddc.vim'
 Plug 'vim-denops/denops.vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'github/copilot.vim'
 
 " coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 xmap <c-f>  <Plug>(coc-format)
 nmap <c-f>  <Plug>(coc-format)
-nnoremap <nowait><expr> <C-n> coc#float#has_scroll() ? coc#float#scroll(1) : "\<c-n>"
-nnoremap <nowait><expr> <C-p> coc#float#has_scroll() ? coc#float#scroll(0) : "\<c-p>"
+" nnoremap <nowait><expr> <C-n> coc#float#has_scroll() ? coc#float#scroll(1) : "\<c-n>"
+" nnoremap <nowait><expr> <C-p> coc#float#has_scroll() ? coc#float#scroll(0) : "\<c-p>"
+
+inoremap <silent><expr> <TAB>
+  \ coc#pum#visible() ? coc#pum#next(1):
+  \ CheckBackSpace() ? "\<TAB>":
+  \ coc#refresh()
+
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() :
+  \ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 " colorschemes
 Plug 'rakr/vim-one'
