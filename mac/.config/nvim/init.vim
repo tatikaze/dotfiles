@@ -66,6 +66,9 @@ Plug 'prettier/vim-prettier', {
   \ }
 
 Plug 'pantharshit00/vim-prisma'
+
+Plug 'wesleimp/stylua.nvim'
+
 call plug#end()
 
 colorscheme iceberg
