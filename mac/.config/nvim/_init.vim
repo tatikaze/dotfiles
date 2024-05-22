@@ -11,7 +11,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'github/copilot.vim'
 
 " coc
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release' }
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 xmap <c-f>  <Plug>(coc-format)
 nmap <c-f>  <Plug>(coc-format)
@@ -33,6 +33,17 @@ function! CheckBackspace() abort
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+autocmd FileType qf wincmd H
+function! OpenQuickfixWindow()
+  copen
+  set modifiable
+  vertical resize 70
+endfunction
+autocmd QuickFixCmdPost vimgrep call OpenQuickfixWindow()
+
+Plug 'thinca/vim-qfreplace'
+Plug 'rhysd/github-complete.vim'
+
 " colorschemes
 Plug 'rakr/vim-one'
 Plug 'cocopon/iceberg.vim'
@@ -42,7 +53,7 @@ Plug 'sickill/vim-monokai'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
-let g:airline_theme = 'papercolor'               " テーマの指定
+let g:airline_theme = 'violet'               " テーマの指定
 let g:airline#extensions#tabline#enabled = 1 " タブラインを表示
 let g:airline_powerline_fonts = 1            " Powerline Fontsを利用
 
@@ -68,6 +79,8 @@ Plug 'prettier/vim-prettier', {
 Plug 'pantharshit00/vim-prisma'
 
 Plug 'wesleimp/stylua.nvim'
+
+Plug 'thinca/vim-qfreplace'
 
 call plug#end()
 

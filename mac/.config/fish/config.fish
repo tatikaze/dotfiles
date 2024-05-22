@@ -1,15 +1,14 @@
 ## WSL2環境ではルートディレクトリがwindows側になってしまう
 #cd
-#
+
 ## golang
 set -x PATH /usr/local/bin $PATH
 #set -x GOPATH $HOME/.go
 #set -x PATH $PATH $GOPATH/bin
-#
+
 ## rust
-#set -x CARGOPATH $HOME/.cargo
-#set -x PATH $PATH $CARGOPATH/bin
-#
+set -x CARGOPATH $HOME/.cargo/bin
+set -x PATH $PATH $CARGOPATH
 
 ## npm
 #set -x NPMPATH $HOME/.npm-global
@@ -31,66 +30,29 @@ set -x PATH $PATH $CLIS/flutter/bin
 ### Flutter DevTool
 set -x PATH $PATH $CLI/flutter/.pub-cache/bin
 
+### Custom Command
+set -x CCOMMAND_PATH $HOME/Projects/custom-command
+set -x PATH $PATH $CCOMMAND_PATH
+
 #
 set -x HOMEBREW /opt/homebrew
 set -x PATH $PATH $HOMEBREW/bin
-
-# tmux の自動起動
-if test -z $TMUX
-  tmux new-session
-end
 
 alias cat='bat'
 alias ls='exa --git'
 alias lsa='exa --git'
 alias lc='clear && pwd && ls'
-alias updir='cd .. && ls'
-
-alias stu='git status'
-alias add='git add'
-alias commit='git commit'
-alias branch='git branch'
-alias push='git push'
 
 alias doco='docker compose'
-
-#ghq内部のリポジトリをfzfで選択、移動
-function select_ghq_repository
-	set ghq_path (ghq list | fzf --preview "cat --color=always --style=header,grid --line-range :80 (ghq root)/{}/README.*")
-	set repo_path (ghq root)"/"$ghq_path | echo ""
-	if [ -n "$repo_path" ]
-		cd $repo_path
-		echo "$repo_path"
-		commandline -f repaint
-	end
-end
 
 function exa_flex_tree
 	ls -l --tree --level=$argv
 end
 
-# package.jsonのいる階層まで登る
-function cd_project_root
-	##	while ! [ -d .git || test $PWD = $HOME ]
-	while ! test -d .git -o $PWD = $HOME
-			cd ..
-	end
-end
-
-function fim
-	set fzf_path (fzf)
-	if [ -n $fzf_path ] 
-		vim $fzf_path
-	end
-end
-
-bind \cg 'select_ghq_repository'
 alias tre='exa_flex_tree'
 alias pjr='cd_project_root'
+alias pkr='cd_package_root'
 alias vim='nvim'
-
-
-#export LSCOLORS=Gxfxcxdxbxegedabagacad
 
 fish_add_path /opt/homebrew/opt/mysql-client@5.7/bin
 
@@ -98,3 +60,12 @@ fish_add_path /opt/homebrew/opt/mysql-client@5.7/bin
 set -gx PNPM_HOME "/Users/tatikaze/Library/pnpm"
 set -gx PATH "$PNPM_HOME" $PATH
 # pnpm end
+
+# wezterm
+# set -gx WEZTERM_CONFIG /Users/tatikaze/.config/wezterm/wezterm.lua
+# set -gx PATH $PATH $WEZTERM_CONFIG
+# set -gx WEZTERM_BINARY /Applications/WezTerm.app/Contents/MacOS
+# set -gx PATH $PATH $WEZTERM_BINARY
+# wezterm end
+set -gx VOLTA_HOME "$HOME/.volta"
+set -gx PATH "$VOLTA_HOME/bin" $PATH

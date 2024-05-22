@@ -1,109 +1,47 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
+local tab_bar_style_settings = require("./tab_bar_style_settings")
+local custom_bindings = require("./custom_key_bindings")
 
-local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
-local SOLID_RIGHT_ARROW = utf8.char(0xe0b0)
+wezterm.on("gui-startup", function(cmd)
+  local tab, pane, window = mux.spawn_window(cmd or {})
+  pane:split({ size = 0.3 })
+  pane:split({ size = 0.5 })
+end)
+
+wezterm.on("open-tty-clock", function(window, pane)
+  window:perform_action(pane, act.PaneDomain("CurrentPane"), act.SendString("tty-clock -s -C 3 -c -C 3 -f '%a %b %d %I:%M:%S %p'"))
+end)
 
 return {
-	leader = { key = "s", mods = "CTRL" },
-	keys = {
-		{
-			key = "r",
-			mods = "LEADER",
-			action = act.ActivateKeyTable({
-				name = "resize_pane",
-				one_shot = false,
-			}),
-		},
+  leader = { key = "s", mods = "CTRL" },
+  keys = custom_bindings,
 
-		{
-			key = "h",
-			mods = "LEADER",
-			action = act.ActivatePaneDirection("Left"),
-		},
-		{
-			key = "l",
-			mods = "LEADER",
-			action = act.ActivatePaneDirection("Right"),
-		},
-		{
-			key = "j",
-			mods = "LEADER",
-			action = act.ActivatePaneDirection("Down"),
-		},
-		{
-			key = "k",
-			mods = "LEADER",
-			action = act.ActivatePaneDirection("Up"),
-		},
-		{
-			key = "-",
-			mods = "LEADER",
-			action = act.SplitVertical,
-		},
-		{
-			key = "|",
-			mods = "LEADER",
-			action = act.SplitHorizontal,
-		},
-		{
-			key = "c",
-			mods = "LEADER",
-			action = act.SpawnTab("CurrentPaneDomain"),
-		},
-		{
-			key = "p",
-			mods = "LEADER",
-			action = act.ActivateTabRelative(-1),
-		},
-		{
-			key = "n",
-			mods = "LEADER",
-			action = act.ActivateTabRelative(1),
-		},
-	},
+  key_tables = {
+    resize_pane = {
+      { key = "h", action = act.AdjustPaneSize({ "Left", 1 }) },
 
-	key_tables = {
-		resize_pane = {
-			{ key = "h", action = act.AdjustPaneSize({ "Left", 1 }) },
+      { key = "l", action = act.AdjustPaneSize({ "Right", 1 }) },
 
-			{ key = "l", action = act.AdjustPaneSize({ "Right", 1 }) },
+      { key = "k", action = act.AdjustPaneSize({ "Up", 1 }) },
 
-			{ key = "k", action = act.AdjustPaneSize({ "Up", 1 }) },
+      { key = "j", action = act.AdjustPaneSize({ "Down", 1 }) },
 
-			{ key = "j", action = act.AdjustPaneSize({ "Down", 1 }) },
-
-			-- Cancel the mode by pressing escape
-			{ key = "Escape", action = "PopKeyTable" },
-		},
-	},
-	color_scheme = "Andromeda",
-	window_background_opacity = 0.6,
-	inactive_pane_hsb = {
-		saturation = 0.5,
-		brightness = 0.5,
-	},
-	tab_bar_at_bottom = true,
-	tab_bar_style = {
-		active_tab_left = wezterm.format({
-			{ Background = { Color = "#0b0022" } },
-			{ Foreground = { Color = "#2b2042" } },
-			{ Text = SOLID_LEFT_ARROW },
-		}),
-		active_tab_right = wezterm.format({
-			{ Background = { Color = "#0b0022" } },
-			{ Foreground = { Color = "#2b2042" } },
-			{ Text = SOLID_RIGHT_ARROW },
-		}),
-		inactive_tab_left = wezterm.format({
-			{ Background = { Color = "#0b0022" } },
-			{ Foreground = { Color = "#1b1032" } },
-			{ Text = SOLID_LEFT_ARROW },
-		}),
-		inactive_tab_right = wezterm.format({
-			{ Background = { Color = "#0b0022" } },
-			{ Foreground = { Color = "#1b1032" } },
-			{ Text = SOLID_RIGHT_ARROW },
-		}),
-	},
+      -- Cancel the mode by pressing escape
+      { key = "Escape", action = "PopKeyTable" },
+    },
+  },
+  font_size = 10,
+  color_scheme = "FishTank",
+  window_background_opacity = 0.95,
+  inactive_pane_hsb = {
+    saturation = 0.7,
+    brightness = 0.8,
+  },
+  colors = {
+    split = "#666666",
+  },
+  tab_bar_at_bottom = true,
+  tab_bar_style = tab_bar_style_settings,
+  window_decorations = "RESIZE",
 }
