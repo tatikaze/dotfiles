@@ -25,9 +25,9 @@ if ! command -v tmux &> /dev/null; then
 	echo "  tmux"
 fi
 
-# exa install
-if ! command -v exa &> /dev/null; then
-	echo "  exa"
+# eza install
+if ! command -v eza &> /dev/null; then
+	echo "  eza"
 fi
 
 # tig install

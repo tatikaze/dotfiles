@@ -15,6 +15,9 @@ set -x PATH $PATH $CARGOPATH
 #set -x PATH $PATH $NPMPATH/bin
 set -x PATH $PATH /opt/homebrew/bin
 
+## volta
+set -x PATH $PATH $HOME/.volta/bin
+
 ## yarn
 set -x PATH $PATH (yarn global bin)
 #

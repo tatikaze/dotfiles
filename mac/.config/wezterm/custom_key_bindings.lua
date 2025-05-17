@@ -14,8 +14,7 @@ return {
   {
     key = "i",
     mods = "LEADER",
-    action = wezterm.action_callback(function(window, pane)
-      local tab = pane:tab()
+    action = wezterm.action_callback(function(_, pane)
       pane:split({ size = 0.3, direction = "Left" })
       pane:split({ size = 0.5, direction = "Right" })
       local tab = pane:tab()

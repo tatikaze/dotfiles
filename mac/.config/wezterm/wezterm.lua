@@ -1,10 +1,11 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
+local mux = wezterm.mux
 local tab_bar_style_settings = require("./tab_bar_style_settings")
 local custom_bindings = require("./custom_key_bindings")
 
 wezterm.on("gui-startup", function(cmd)
-  local tab, pane, window = mux.spawn_window(cmd or {})
+  local _, pane, _ = mux.spawn_window(cmd or {})
   pane:split({ size = 0.3 })
   pane:split({ size = 0.5 })
 end)

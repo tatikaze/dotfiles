@@ -19,3 +19,8 @@ mkdir -p $HOME/.config/nvim/plugin
 for file in $SCRIPT_DIR/.config/nvim/plugin/*; do
   ln -sf "$file" ~/.config/nvim/plugin/
 done
+
+mkdir -p $HOME/.config/wezterm
+for file in $SCRIPT_DIR/.config/wezterm/*; do
+  ln -sf "$file" ~/.config/wezterm/
+done
