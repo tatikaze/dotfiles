@@ -1,9 +1,9 @@
-local null_ls = require("null-ls")
+local null_ls = require 'null-ls'
 
-null_ls.setup({
+null_ls.setup {
   sources = {
-    require("null-ls").builtins.formatting.stylua,
-    require("null-ls").builtins.formatting.prettier,
-    require("null-ls").builtins.diagnostics.eslint,
+    null_ls.builtins.formatting.stylua,
+    null_ls.builtins.formatting.prettier,
+    require 'none-ls.diagnostics.eslint',
   },
-})
+}

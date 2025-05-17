@@ -1,21 +1,20 @@
 -- LSPの基本設定
-local lspconfig = require('lspconfig')
+local lspconfig = require 'lspconfig'
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-local servers = { 'tsserver' }
-
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup{}
-end
+lspconfig.ts_ls.setup {
+  capabilities = capabilities,
+  filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+}
 
 lspconfig.lua_ls.setup {
   settings = {
     Lua = {
       diagnostics = {
         -- Neovimのグローバル変数を認識させる
-        globals = {'vim'},
+        globals = { 'vim' },
       },
     },
   },
@@ -24,8 +23,8 @@ lspconfig.lua_ls.setup {
 -- ddc.vimの設定
 vim.fn['ddc#custom#patch_global']('sourceOptions', {
   _ = {
-    matchers = {'matcher_fuzzy'},
-    sorters = {'sorter_rank'},
+    matchers = { 'matcher_fuzzy' },
+    sorters = { 'sorter_rank' },
   },
   ['nvim-lsp'] = {
     mark = 'lsp',
@@ -33,7 +32,7 @@ vim.fn['ddc#custom#patch_global']('sourceOptions', {
   },
   ['copilot'] = {
     mark = 'copilot',
-  }
+  },
 })
 
 -- ddc.vimを有効化

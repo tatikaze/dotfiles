@@ -39,8 +39,8 @@ set -x HOMEBREW /opt/homebrew
 set -x PATH $PATH $HOMEBREW/bin
 
 alias cat='bat'
-alias ls='exa --git'
-alias lsa='exa --git'
+alias ls='eza --git'
+alias lsa='eza --git'
 alias lc='clear && pwd && ls'
 
 alias doco='docker compose'
@@ -50,8 +50,6 @@ function exa_flex_tree
 end
 
 alias tre='exa_flex_tree'
-alias pjr='cd_project_root'
-alias pkr='cd_package_root'
 alias vim='nvim'
 
 fish_add_path /opt/homebrew/opt/mysql-client@5.7/bin
@@ -69,3 +67,7 @@ set -gx PATH "$PNPM_HOME" $PATH
 # wezterm end
 set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH
+
+# ghq
+bind \cg "select_ghq_repository"
+alias selectr='select_ghq_repository'
