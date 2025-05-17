@@ -6,6 +6,9 @@ ln -sf $SCRIPT_DIR/.tmux.conf $HOME
 
 # fish
 ln -sf $SCRIPT_DIR/.config/fish/config.fish $HOME/.config/fish/config.fish
+for file in $SCRIPT_DIR/.config/fish/functions/*; do
+  ln -sf "$file" ~/.config/fish/functions/
+done
 
 # nvim
 ln -sf $SCRIPT_DIR/.config/nvim/init.lua $HOME/.config/nvim/init.lua
