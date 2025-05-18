@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/Users/tatikaze/.cache/nvim/packer_hererocks/2.1.1713773202/share/lua/5.1/?.lua;/Users/tatikaze/.cache/nvim/packer_hererocks/2.1.1713773202/share/lua/5.1/?/init.lua;/Users/tatikaze/.cache/nvim/packer_hererocks/2.1.1713773202/lib/luarocks/rocks-5.1/?.lua;/Users/tatikaze/.cache/nvim/packer_hererocks/2.1.1713773202/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/Users/tatikaze/.cache/nvim/packer_hererocks/2.1.1713773202/lib/lua/5.1/?.so"
+local package_path_str = "/Users/tatikaze/.cache/nvim/packer_hererocks/2.1.1727870382/share/lua/5.1/?.lua;/Users/tatikaze/.cache/nvim/packer_hererocks/2.1.1727870382/share/lua/5.1/?/init.lua;/Users/tatikaze/.cache/nvim/packer_hererocks/2.1.1727870382/lib/luarocks/rocks-5.1/?.lua;/Users/tatikaze/.cache/nvim/packer_hererocks/2.1.1727870382/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/Users/tatikaze/.cache/nvim/packer_hererocks/2.1.1727870382/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -112,7 +112,7 @@ _G.packer_plugins = {
   ["copilot.lua"] = {
     after = { "copilot-cmp" },
     commands = { "Copilot" },
-    config = { "\27LJ\2\n≈\1\0\0\4\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\2B\0\2\1K\0\1\0\14filetypes\1\0\3\15javascript\2\blua\2\15typescript\2\npanel\1\0\1\fenabled\1\15suggestion\1\0\3\15suggestion\0\14filetypes\0\npanel\0\1\0\1\fenabled\1\nsetup\fcopilot\frequire\0" },
+    config = { "\27LJ\2\n≈\1\0\0\4\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\2B\0\2\1K\0\1\0\14filetypes\1\0\3\15typescript\2\15javascript\2\blua\2\npanel\1\0\1\fenabled\1\15suggestion\1\0\3\15suggestion\0\14filetypes\0\npanel\0\1\0\1\fenabled\1\nsetup\fcopilot\frequire\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -144,6 +144,11 @@ _G.packer_plugins = {
     path = "/Users/tatikaze/.local/share/nvim/site/pack/packer/start/editorconfig-vim",
     url = "https://github.com/editorconfig/editorconfig-vim"
   },
+  ["eslint.nvim"] = {
+    loaded = true,
+    path = "/Users/tatikaze/.local/share/nvim/site/pack/packer/start/eslint.nvim",
+    url = "https://github.com/MunifTanjim/eslint.nvim"
+  },
   ["formatter.nvim"] = {
     loaded = true,
     path = "/Users/tatikaze/.local/share/nvim/site/pack/packer/start/formatter.nvim",
@@ -174,6 +179,21 @@ _G.packer_plugins = {
     path = "/Users/tatikaze/.local/share/nvim/site/pack/packer/start/lspkind.nvim",
     url = "https://github.com/onsails/lspkind.nvim"
   },
+  ["lualine.nvim"] = {
+    loaded = true,
+    path = "/Users/tatikaze/.local/share/nvim/site/pack/packer/start/lualine.nvim",
+    url = "https://github.com/nvim-lualine/lualine.nvim"
+  },
+  ["noice.nvim"] = {
+    loaded = true,
+    path = "/Users/tatikaze/.local/share/nvim/site/pack/packer/start/noice.nvim",
+    url = "https://github.com/folke/noice.nvim"
+  },
+  ["none-ls-extras.nvim"] = {
+    loaded = true,
+    path = "/Users/tatikaze/.local/share/nvim/site/pack/packer/start/none-ls-extras.nvim",
+    url = "https://github.com/nvimtools/none-ls-extras.nvim"
+  },
   ["none-ls.nvim"] = {
     loaded = true,
     path = "/Users/tatikaze/.local/share/nvim/site/pack/packer/start/none-ls.nvim",
@@ -188,6 +208,17 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/tatikaze/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
+  },
+  ["nvim-notify"] = {
+    loaded = true,
+    path = "/Users/tatikaze/.local/share/nvim/site/pack/packer/start/nvim-notify",
+    url = "https://github.com/rcarriga/nvim-notify"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/tatikaze/.local/share/nvim/site/pack/packer/opt/nvim-web-devicons",
+    url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
   ["packer.nvim"] = {
     loaded = true,

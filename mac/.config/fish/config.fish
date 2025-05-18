@@ -3,8 +3,8 @@
 
 ## golang
 set -x PATH /usr/local/bin $PATH
-#set -x GOPATH $HOME/.go
-#set -x PATH $PATH $GOPATH/bin
+set -x GOPATH $HOME/go
+set -x PATH $PATH $GOPATH/bin
 
 ## rust
 set -x CARGOPATH $HOME/.cargo/bin
@@ -33,6 +33,9 @@ set -x PATH $PATH $CLIS/flutter/bin
 ### Flutter DevTool
 set -x PATH $PATH $CLI/flutter/.pub-cache/bin
 
+### Docker
+set -x PATH $PATH ~/.docker/bin
+
 ### Custom Command
 set -x CCOMMAND_PATH $HOME/Projects/custom-command
 set -x PATH $PATH $CCOMMAND_PATH
@@ -41,19 +44,18 @@ set -x PATH $PATH $CCOMMAND_PATH
 set -x HOMEBREW /opt/homebrew
 set -x PATH $PATH $HOMEBREW/bin
 
-alias cat='bat'
-alias ls='eza --git'
-alias lsa='eza --git'
-alias lc='clear && pwd && ls'
-
-alias doco='docker compose'
-
 function exa_flex_tree
 	ls -l --tree --level=$argv
 end
 
+alias cat='bat'
+alias ls='exa --git'
+alias lsa='exa --git'
+alias lc='clear && pwd && ls'
+alias doco='docker compose'
 alias tre='exa_flex_tree'
 alias vim='nvim'
+alias pwdc='pwd | pbcopy'
 
 fish_add_path /opt/homebrew/opt/mysql-client@5.7/bin
 
