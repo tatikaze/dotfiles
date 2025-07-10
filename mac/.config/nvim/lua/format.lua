@@ -134,4 +134,3 @@ require("formatter").setup({
     },
   },
 })
-require("js_formatter")

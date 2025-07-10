@@ -34,7 +34,7 @@ return {
   },
   font_size = 10,
   color_scheme = "FishTank",
-  window_background_opacity = 0.95,
+  window_background_opacity = 0.85,
   inactive_pane_hsb = {
     saturation = 0.7,
     brightness = 0.8,

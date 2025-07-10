@@ -20,6 +20,10 @@ set -x PATH $PATH $HOME/.volta/bin
 
 ## yarn
 set -x PATH $PATH (yarn global bin)
+
+## bun
+set -x PATH $PATH $HOME/.bun/bin
+
 #
 ## Unmanaged Commands
 set -x CLIS ~/.cli
@@ -44,16 +48,16 @@ set -x PATH $PATH $CCOMMAND_PATH
 set -x HOMEBREW /opt/homebrew
 set -x PATH $PATH $HOMEBREW/bin
 
-function exa_flex_tree
+function eza_flex_tree
 	ls -l --tree --level=$argv
 end
 
 alias cat='bat'
-alias ls='exa --git'
-alias lsa='exa --git'
+alias ls='eza --git'
+alias lsa='eza --git'
 alias lc='clear && pwd && ls'
 alias doco='docker compose'
-alias tre='exa_flex_tree'
+alias tre='eza_flex_tree'
 alias vim='nvim'
 alias pwdc='pwd | pbcopy'
 
@@ -76,3 +80,7 @@ set -gx PATH "$VOLTA_HOME/bin" $PATH
 # ghq
 bind \cg "select_ghq_repository"
 alias selectr='select_ghq_repository'
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH

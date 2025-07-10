@@ -10,12 +10,12 @@ vim.cmd(
   [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 )
 
-require("packages")
+require("lazy_init")
+
 require("lsp")
 require("styles")
 require("completions")
 require("format")
-require("null_ls")
 
 vim.api.nvim_set_keymap(
   "n",
