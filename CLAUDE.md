@@ -56,6 +56,9 @@ dotfiles/
 ### `mac/confinit.sh`
 - 各種設定ファイルのシンボリックリンク作成：
   - tmux, fish, nvim, wezterm設定の配置
+- **nvim設定の特徴**：
+  - 個別.luaファイルは個別にシンボリックリンク
+  - `lua/plugins`ディレクトリは全体をシンボリックリンク（構造変更に対応）
 
 ## Neovim Configuration Structure
 
@@ -118,6 +121,18 @@ ln -sf $PWD/mac/.config/fish/config.fish ~/.config/fish/config.fish
 # Neovim設定のみ更新
 ln -sf $PWD/mac/.config/nvim/init.lua ~/.config/nvim/init.lua
 
+# luaコアファイルの更新
+mkdir -p ~/.config/nvim/lua
+for file in mac/.config/nvim/lua/*.lua; do
+  if [ -f "$file" ]; then
+    ln -sf "$PWD/$file" ~/.config/nvim/lua/
+  fi
+done
+
+# pluginsディレクトリ全体の更新
+rm -rf ~/.config/nvim/lua/plugins
+ln -sf $PWD/mac/.config/nvim/lua/plugins ~/.config/nvim/lua/plugins
+
 # Wezterm設定のみ更新
 mkdir -p ~/.config/wezterm
 for file in mac/.config/wezterm/*; do
@@ -131,6 +146,10 @@ done
 - シンボリックリンクを使用してホームディレクトリに配置
 - macOS環境に最適化（`mac/`ディレクトリ）
 - レガシー環境との併用可能（`src/`ディレクトリ）
+- **nvim設定の特徴**：
+  - コア.luaファイルは個別シンボリックリンク
+  - `lua/plugins`ディレクトリは全体シンボリックリンク
+  - プラグイン追加/削除時の自動同期
 
 ### 主要な依存関係
 - **macOS**: Homebrew経由でのパッケージ管理
@@ -142,3 +161,6 @@ done
 - 設定ファイルは直接編集可能
 - リポジトリの変更が即座にシステムに反映
 - 各ツールの設定が独立して管理可能
+- **nvim plugins管理の効率性**：
+  - ディレクトリシンボリックリンクにより構造変更に自動対応
+  - 新しいプラグイン設定ファイルの追加/削除が自動反映

@@ -27,13 +27,10 @@ for file in $SCRIPT_DIR/.config/nvim/lua/*.lua; do
   fi
 done
 
-# lua/pluginsディレクトリ（個別プラグイン設定）
-mkdir -p $HOME/.config/nvim/lua/plugins
-for file in $SCRIPT_DIR/.config/nvim/lua/plugins/*; do
-  if [ -f "$file" ]; then
-    ln -sf "$file" ~/.config/nvim/lua/plugins/
-  fi
-done
+# lua/pluginsディレクトリ全体をシンボリックリンク
+# 既存のpluginsディレクトリまたはシンボリックリンクを削除
+rm -rf $HOME/.config/nvim/lua/plugins
+ln -sf $SCRIPT_DIR/.config/nvim/lua/plugins $HOME/.config/nvim/lua/plugins
 
 mkdir -p $HOME/.config/wezterm
 for file in $SCRIPT_DIR/.config/wezterm/*; do
