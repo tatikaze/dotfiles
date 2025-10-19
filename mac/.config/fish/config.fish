@@ -64,12 +64,12 @@ alias pwdc='pwd | pbcopy'
 fish_add_path /opt/homebrew/opt/mysql-client@5.7/bin
 
 # pnpm
-set -gx PNPM_HOME "/Users/tatikaze/Library/pnpm"
+set -gx PNPM_HOME "$HOME/Library/pnpm"
 set -gx PATH "$PNPM_HOME" $PATH
 # pnpm end
 
 # wezterm
-# set -gx WEZTERM_CONFIG /Users/tatikaze/.config/wezterm/wezterm.lua
+# set -gx WEZTERM_CONFIG "$HOME/.config/wezterm/wezterm.lua"
 # set -gx PATH $PATH $WEZTERM_CONFIG
 # set -gx WEZTERM_BINARY /Applications/WezTerm.app/Contents/MacOS
 # set -gx PATH $PATH $WEZTERM_BINARY

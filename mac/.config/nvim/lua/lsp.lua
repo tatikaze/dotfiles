@@ -1,13 +1,6 @@
--- LSPの基本設定
-local lspconfig = require 'lspconfig'
-
+-- LSPの基本設定（vim.lsp.configベース）
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
-lspconfig.ts_ls.setup {
-  capabilities = capabilities,
-  filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
-}
 
 local on_attach = function(_, bufnr)
   local bufmap = function(mode, lhs, rhs, desc)
@@ -21,18 +14,17 @@ local on_attach = function(_, bufnr)
   bufmap("n", "<leader>D", vim.lsp.buf.type_definition, "Go to type definition")
 end
 
-local servers = { "jsonnet_ls" }
-
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup({
+local function setup(server, opts)
+  local defaults = {
     capabilities = capabilities,
     on_attach = on_attach,
-  })
+  }
+  vim.lsp.config(server, vim.tbl_deep_extend("force", defaults, opts or {}))
+  vim.lsp.enable(server)
 end
 
-lspconfig.ts_ls.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
+setup("ts_ls", {
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
   settings = {
     typescript = {
       exclude = { "*/**/dist", "@/dist" },
@@ -40,16 +32,17 @@ lspconfig.ts_ls.setup({
   },
 })
 
-lspconfig.lua_ls.setup({
+setup("jsonnet_ls")
+
+setup("lua_ls", {
   settings = {
     Lua = {
       diagnostics = {
         -- Neovimのグローバル変数を認識させる
-        globals = { 'vim' },
+        globals = { "vim" },
       },
     },
   },
 })
 
--- biome
-lspconfig.biome.setup({})
+setup("biome")
