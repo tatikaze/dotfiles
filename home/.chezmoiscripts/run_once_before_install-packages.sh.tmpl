@@ -1,0 +1,135 @@
+#!/bin/bash
+
+set -e
+
+echo "🔧 Installing packages for {{ .chezmoi.os }}..."
+
+{{- if eq .chezmoi.os "darwin" }}
+## macOS: Homebrew
+
+# Install Homebrew
+if ! command -v brew &> /dev/null; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    # Add Homebrew to PATH for Apple Silicon
+    if [ "{{ .chezmoi.arch }}" = "arm64" ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+fi
+
+# Essential packages
+PACKAGES=(
+    "fish"
+    "tmux"
+    "eza"
+    "tig"
+    "ghq"
+    "bat"
+    "neovim"
+    "fzf"
+    "ripgrep"
+    "fd"
+)
+
+echo "Checking and installing macOS packages..."
+for package in "${PACKAGES[@]}"; do
+    if ! brew list "$package" &> /dev/null 2>&1; then
+        echo "  Installing $package..."
+        brew install "$package"
+    else
+        echo "  ✓ $package already installed"
+    fi
+done
+
+{{- else if eq .chezmoi.os "linux" }}
+## Linux: Package manager detection
+
+# Detect package manager
+if command -v apt &> /dev/null; then
+    PKG_MANAGER="apt"
+    INSTALL_CMD="sudo apt update && sudo apt install -y"
+elif command -v dnf &> /dev/null; then
+    PKG_MANAGER="dnf"
+    INSTALL_CMD="sudo dnf install -y"
+elif command -v pacman &> /dev/null; then
+    PKG_MANAGER="pacman"
+    INSTALL_CMD="sudo pacman -S --noconfirm"
+elif command -v zypper &> /dev/null; then
+    PKG_MANAGER="zypper"
+    INSTALL_CMD="sudo zypper install -y"
+else
+    echo "⚠️  Unknown package manager. Please install packages manually."
+    exit 1
+fi
+
+echo "Detected package manager: $PKG_MANAGER"
+
+# Common package names (mapped per distro)
+case $PKG_MANAGER in
+    apt)
+        PACKAGES="fish tmux neovim exa bat ripgrep fd-find fzf tig"
+        ;;
+    dnf)
+        PACKAGES="fish tmux neovim exa bat ripgrep fd-find fzf tig"
+        ;;
+    pacman)
+        PACKAGES="fish tmux neovim eza bat ripgrep fd fzf tig"
+        ;;
+    zypper)
+        PACKAGES="fish tmux neovim bat ripgrep fd fzf tig"
+        ;;
+esac
+
+echo "Installing Linux packages..."
+eval "$INSTALL_CMD $PACKAGES"
+
+# Install ghq (not in most distro repos)
+if ! command -v ghq &> /dev/null; then
+    echo "Installing ghq..."
+    go install github.com/x-motemen/ghq@latest || echo "⚠️  ghq install failed. Install Go first."
+fi
+
+# Install Linuxbrew (optional)
+if ! command -v brew &> /dev/null; then
+    echo "📝 Linuxbrew not installed. To install:"
+    echo "   /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+fi
+
+{{- else if eq .chezmoi.os "windows" }}
+## Windows: Scoop or winget
+
+# Check for Scoop
+if ! command -v scoop &> /dev/null; then
+    echo "Installing Scoop..."
+    powershell.exe -Command "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; iwr -useb get.scoop.sh | iex"
+fi
+
+# Install packages via Scoop
+echo "Installing Windows packages..."
+scoop install fish neovim fzf ripgrep fd bat tig
+
+echo "⚠️  Some tools may need manual installation on Windows:"
+echo "   - tmux: Use Windows Terminal instead"
+echo "   - eza: Use 'ls' or install via cargo"
+
+{{- end }}
+
+echo ""
+echo "✨ Package installation complete!"
+echo ""
+echo "📝 Next steps:"
+{{- if eq .chezmoi.os "darwin" }}
+echo "  1. Install Cica font: https://github.com/miiton/Cica"
+echo "  2. Change default shell:"
+echo "     echo \"\$(which fish)\" | sudo tee -a /etc/shells"
+echo "     chsh -s \$(which fish)"
+{{- else if eq .chezmoi.os "linux" }}
+echo "  1. Install a Nerd Font (Cica or FiraCode Nerd Font)"
+echo "  2. Change default shell:"
+echo "     echo \"\$(which fish)\" | sudo tee -a /etc/shells"
+echo "     chsh -s \$(which fish)"
+{{- else if eq .chezmoi.os "windows" }}
+echo "  1. Install a Nerd Font from: https://www.nerdfonts.com/"
+echo "  2. Set Fish as default shell in Windows Terminal settings"
+{{- end }}

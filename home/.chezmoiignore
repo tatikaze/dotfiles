@@ -14,3 +14,20 @@
 
 # Neovim plugin lock file (managed separately)
 # .config/nvim/lazy-lock.json
+
+## Platform-specific ignores
+
+{{- if ne .chezmoi.os "darwin" }}
+# Ignore macOS-specific paths on non-macOS
+Library/
+{{- end }}
+
+{{- if ne .chezmoi.os "linux" }}
+# Ignore Linux-specific configs on non-Linux
+.config/systemd/
+{{- end }}
+
+{{- if ne .chezmoi.os "windows" }}
+# Ignore Windows-specific configs on non-Windows
+AppData/
+{{- end }}
