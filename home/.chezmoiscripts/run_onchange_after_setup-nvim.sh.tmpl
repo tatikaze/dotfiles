@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# This script runs when nvim lazy-lock.json changes
+# Hash: {{ include "dot_config/nvim/lazy-lock.json" | sha256sum }}
+
+set -e
+
+echo "🚀 Setting up Neovim plugins..."
+
+if command -v nvim &> /dev/null; then
+    echo "Syncing Neovim plugins with Lazy.nvim..."
+    nvim --headless "+Lazy! sync" +qa
+    echo "✨ Neovim plugins synced!"
+else
+    echo "⚠️  Neovim not found, skipping plugin setup"
+fi

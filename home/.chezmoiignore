@@ -1,0 +1,16 @@
+# chezmoi ignore patterns
+
+# macOS system files
+.DS_Store
+.Trash
+
+# Editor files
+*.swp
+*.swo
+*~
+
+# Fish shell generated files
+.config/fish/fish_variables
+
+# Neovim plugin lock file (managed separately)
+# .config/nvim/lazy-lock.json

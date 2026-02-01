@@ -1,0 +1,6 @@
+# chezmoi data template
+# Run `chezmoi init` to populate these values
+
+[defaults]
+    email = "your-email@example.com"
+    name = "Your Name"
