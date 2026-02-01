@@ -1,0 +1,57 @@
+# Git configuration - Cross-platform
+
+[user]
+    name = {{ .name }}
+    email = {{ .email }}
+
+[core]
+    editor = nvim
+{{- if eq .chezmoi.os "darwin" }}
+    # macOS: Use osxkeychain for credentials
+    helper = osxkeychain
+{{- else if eq .chezmoi.os "linux" }}
+    # Linux: Use libsecret or cache
+    helper = /usr/share/git/credential/libsecret/git-credential-libsecret
+{{- else if eq .chezmoi.os "windows" }}
+    # Windows: Use Git Credential Manager
+    helper = manager-core
+    autocrlf = true
+{{- end }}
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = false
+
+[push]
+    default = simple
+    autoSetupRemote = true
+
+[alias]
+    st = status
+    co = checkout
+    br = branch
+    ci = commit
+    lg = log --graph --oneline --decorate --all
+    ll = log --pretty=format:'%C(yellow)%h%Creset %C(cyan)%ad%Creset | %s %C(green)%d%Creset %C(bold blue)<%an>%Creset' --date=short
+    unstage = reset HEAD --
+
+[color]
+    ui = auto
+
+[diff]
+    tool = nvimdiff
+
+[merge]
+    tool = nvimdiff
+    conflictstyle = diff3
+
+[ghq]
+    root = ~/.ghq
+
+{{- if .work }}
+# Work-specific configuration
+[includeIf "gitdir:~/work/"]
+    path = ~/.gitconfig-work
+{{- end }}

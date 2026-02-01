@@ -1,0 +1,44 @@
+# chezmoi ignore patterns
+
+## Repository files (not to be deployed)
+README.md
+CLAUDE.md
+docs/
+.gitignore
+.git/
+.github/
+.claude/
+.serena/
+legacy/
+
+# macOS system files
+.DS_Store
+.Trash
+
+# Editor files
+*.swp
+*.swo
+*~
+
+# Fish shell generated files
+.config/fish/fish_variables
+
+# Neovim plugin lock file (managed separately)
+# .config/nvim/lazy-lock.json
+
+## Platform-specific ignores
+
+{{- if ne .chezmoi.os "darwin" }}
+# Ignore macOS-specific paths on non-macOS
+Library/
+{{- end }}
+
+{{- if ne .chezmoi.os "linux" }}
+# Ignore Linux-specific configs on non-Linux
+.config/systemd/
+{{- end }}
+
+{{- if ne .chezmoi.os "windows" }}
+# Ignore Windows-specific configs on non-Windows
+AppData/
+{{- end }}

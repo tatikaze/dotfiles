@@ -1,0 +1,18 @@
+# chezmoi data template
+# Run `chezmoi init` to populate these values
+# Or create ~/.config/chezmoi/chezmoi.toml with your actual values
+
+[data]
+    email = "your-email@example.com"
+    name = "Your Name"
+
+    # Work configuration (optional)
+    work = false
+    work_email = "work@company.com"
+
+    # Platform-specific settings
+    [data.darwin]
+        homebrew_prefix = "/opt/homebrew"
+
+    [data.linux]
+        homebrew_prefix = "/home/linuxbrew/.linuxbrew"
