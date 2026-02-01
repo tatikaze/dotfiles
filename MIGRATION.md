@@ -50,12 +50,14 @@ rm ~/.tmux.conf
 # chezmoiインストール（まだの場合）
 brew install chezmoi
 
-# このリポジトリをchezmoi管理下に配置
-git clone https://github.com/YOUR_USERNAME/dotfiles.git ~/.local/share/chezmoi
-
-# または既存のリポジトリから
+# このリポジトリから初期化（推奨）
 chezmoi init https://github.com/YOUR_USERNAME/dotfiles.git
+
+# または直接クローン
+git clone https://github.com/YOUR_USERNAME/dotfiles.git ~/.local/share/chezmoi
 ```
+
+**注意**: リポジトリルートがchezmoiのソースディレクトリになるよう設計されています。`home/`サブディレクトリは使用していません。
 
 ### 4. 設定変数の設定
 

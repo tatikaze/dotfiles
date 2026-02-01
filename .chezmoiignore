@@ -1,5 +1,18 @@
 # chezmoi ignore patterns
 
+## Repository files (not to be deployed)
+README.md
+MIGRATION.md
+CROSS_PLATFORM_GUIDE.md
+EXAMPLES.md
+CLAUDE.md
+.gitignore
+.git/
+.github/
+.claude/
+.serena/
+legacy/
+
 # macOS system files
 .DS_Store
 .Trash

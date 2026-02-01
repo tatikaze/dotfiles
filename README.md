@@ -85,23 +85,34 @@ chezmoi update
 ## 📁 ディレクトリ構造
 
 ```
-~/.local/share/chezmoi/
-├── home/                           # chezmoi管理下のファイル
-│   ├── .chezmoi.toml.tmpl         # chezmoi設定（テンプレート）
-│   ├── .chezmoiignore             # 除外ファイル設定
-│   ├── .chezmoidata.toml          # テンプレート変数のデフォルト値
-│   ├── .chezmoiscripts/           # 自動実行スクリプト
-│   │   ├── run_once_before_install-packages.sh
-│   │   ├── run_once_after_setup-fish.sh
-│   │   └── run_onchange_after_setup-nvim.sh.tmpl
-│   ├── dot_config/
-│   │   ├── fish/
-│   │   ├── nvim/
-│   │   └── wezterm/
-│   ├── dot_tmux.conf
-│   └── dot_editorconfig
-├── mac/                           # レガシー設定（参考用）
-└── src/                           # レガシーzsh設定（参考用）
+~/.local/share/chezmoi/ (= このリポジトリ)
+├── .chezmoi.toml.tmpl         # chezmoi設定（テンプレート）
+├── .chezmoiignore             # 除外ファイル設定
+├── .chezmoidata.toml          # テンプレート変数のデフォルト値
+├── .chezmoiscripts/           # 自動実行スクリプト
+│   ├── run_once_before_install-packages.sh.tmpl
+│   ├── run_once_after_setup-fish.sh
+│   └── run_onchange_after_setup-nvim.sh.tmpl
+├── dot_config/                # ~/.config/配下の設定
+│   ├── fish/
+│   │   ├── config.fish.tmpl   # OS別設定
+│   │   ├── functions/
+│   │   └── completions/
+│   ├── nvim/
+│   │   ├── init.lua
+│   │   └── lua/
+│   └── wezterm/
+├── dot_tmux.conf              # ~/.tmux.conf
+├── dot_gitconfig.tmpl         # ~/.gitconfig (OS別)
+├── dot_editorconfig           # ~/.editorconfig
+├── README.md                  # このファイル
+├── MIGRATION.md               # 移行ガイド
+├── CROSS_PLATFORM_GUIDE.md    # クロスプラットフォーム対応ガイド
+├── EXAMPLES.md                # 使用例
+└── legacy/                    # レガシー設定（非推奨、参考用）
+    ├── mac/                   # 旧シンボリックリンク方式
+    ├── src/                   # 旧zsh/Prezto設定
+    └── init.sh                # 旧セットアップスクリプト
 ```
 
 ## 🔄 自動実行スクリプト
@@ -160,9 +171,22 @@ chezmoi add --encrypt ~/.ssh/config
 ## ⚠️ 移行について
 
 このリポジトリは従来のシンボリックリンク方式からchezmoiに移行しました。
-レガシーな`mac/`と`src/`ディレクトリは参考用に残してありますが、現在は使用していません。
 
-旧方式のスクリプト:
-- ~~`mac/install.sh`~~ → `home/.chezmoiscripts/run_once_before_install-packages.sh`
-- ~~`mac/confinit.sh`~~ → chezmoiが自動管理
-- ~~`init.sh`~~ → 非推奨（zsh/Prezto環境）
+### レガシーファイル
+
+`legacy/`ディレクトリ配下のファイルは**非推奨**です。参考用に保持していますが、使用しないでください。
+
+- `legacy/mac/` - 旧シンボリックリンク方式の設定
+- `legacy/src/` - 旧zsh/Prezto設定
+- `legacy/init.sh` - 旧セットアップスクリプト
+
+詳細は[legacy/README.md](legacy/README.md)を参照してください。
+
+### 移行対応表
+
+| 旧方式 | 新方式（chezmoi） |
+|--------|------------------|
+| `mac/install.sh` | `.chezmoiscripts/run_once_before_install-packages.sh.tmpl` |
+| `mac/confinit.sh` | chezmoiが自動管理 |
+| `mac/.config/fish/config.fish` | `dot_config/fish/config.fish.tmpl` |
+| 手動シンボリックリンク | `chezmoi apply`で自動展開 |
