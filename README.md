@@ -106,9 +106,10 @@ chezmoi update
 ├── dot_gitconfig.tmpl         # ~/.gitconfig (OS別)
 ├── dot_editorconfig           # ~/.editorconfig
 ├── README.md                  # このファイル
-├── MIGRATION.md               # 移行ガイド
-├── CROSS_PLATFORM_GUIDE.md    # クロスプラットフォーム対応ガイド
-├── EXAMPLES.md                # 使用例
+├── docs/                      # ドキュメント
+│   ├── MIGRATION.md           # 移行ガイド
+│   ├── CROSS_PLATFORM_GUIDE.md # クロスプラットフォーム対応ガイド
+│   └── EXAMPLES.md            # 使用例
 └── legacy/                    # レガシー設定（非推奨、参考用）
     ├── mac/                   # 旧シンボリックリンク方式
     ├── src/                   # 旧zsh/Prezto設定
@@ -160,6 +161,12 @@ chezmoi add --encrypt ~/.ssh/config
    echo "$(which fish)" | sudo tee -a /etc/shells
    chsh -s $(which fish)
    ```
+
+## 📚 詳細ドキュメント
+
+- [移行ガイド](docs/MIGRATION.md) - 既存環境からchezmoiへの移行手順
+- [クロスプラットフォーム対応](docs/CROSS_PLATFORM_GUIDE.md) - macOS/Linux/Windows対応の仕組み
+- [使用例](docs/EXAMPLES.md) - 実践的な使い方とTips
 
 ## 🔗 関連リンク
 
