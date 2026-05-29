@@ -28,9 +28,3 @@ vim.api.nvim_set_keymap(
   ":split | lua vim.lsp.buf.definition()<CR>",
   { noremap = true, silent = true }
 )
-vim.api.nvim_set_keymap(
-  "n",
-  "<C-]>",
-  "<cmd>lua vim.lsp.buf.definition()<CR>",
-  { noremap = true, silent = true }
-)

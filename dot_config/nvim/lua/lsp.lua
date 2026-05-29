@@ -7,6 +7,7 @@ local on_attach = function(_, bufnr)
   end
 
   bufmap("n", "<leader>d", vim.lsp.buf.definition, "Go to definition")
+  bufmap("n", "<C-]>", vim.lsp.buf.definition, "Go to definition")
   bufmap("n", "gr", vim.lsp.buf.references, "Find references")
   bufmap("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
   bufmap("n", "<leader>D", vim.lsp.buf.type_definition, "Go to type definition")
