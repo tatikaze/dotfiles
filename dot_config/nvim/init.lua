@@ -12,7 +12,6 @@ vim.cmd(
 
 require("lazy_init")
 
-require("lsp")
 require("styles")
 require("completions")
 require("format")
