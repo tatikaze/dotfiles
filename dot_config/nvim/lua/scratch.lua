@@ -29,8 +29,16 @@ local function chmod_600(path)
 end
 
 local function open_scratch(path)
+  local uv = vim.uv or vim.loop
+  -- シークレットを含み得るため、defaultのumaskで作成されないよう
+  -- 先に0600で空ファイルを作ってから開く
+  if not uv.fs_stat(path) then
+    local fd = uv.fs_open(path, "w", tonumber("600", 8))
+    if fd then uv.fs_close(fd) end
+  end
   vim.cmd("edit " .. vim.fn.fnameescape(path))
-  vim.api.nvim_create_autocmd("BufWritePost", {
+  -- 書き込み前後でchmod (BufWritePreは新規バッファでも発火するためdefense in depth)
+  vim.api.nvim_create_autocmd({ "BufWritePre", "BufWritePost" }, {
     buffer = 0,
     callback = function() chmod_600(path) end,
   })
@@ -50,6 +58,11 @@ function M.new(slug)
     slug = vim.fn.input("Scratch slug: ")
     if slug == "" then return end
   end
+  -- パストラバーサル防止: slugは単一ファイル名のみ受け付ける
+  if slug:find("/") or slug:find("\\") or slug:find("%.%.") then
+    vim.notify("Invalid slug: must not contain '/', '\\', or '..'", vim.log.levels.ERROR)
+    return
+  end
   if not slug:match("%.") then
     slug = slug .. ".md"
   end
@@ -66,10 +79,19 @@ function M.promote(repo_path)
     repo_path = vim.fn.input("Promote to (repo-relative): ", "docs/")
     if repo_path == "" then return end
   end
-  local dest = project_root() .. "/" .. repo_path
+
+  -- リポジトリ外への書き出しを防ぐ: 解決済みパスがリポジトリroot配下にあるか検証
+  local root = vim.fs.normalize(project_root())
+  local dest = vim.fs.normalize(root .. "/" .. repo_path)
+  if dest:sub(1, #root + 1) ~= root .. "/" then
+    vim.notify("Destination escapes repo root: " .. dest, vim.log.levels.ERROR)
+    return
+  end
+
   vim.fn.mkdir(vim.fn.fnamemodify(dest, ":h"), "p")
   local content = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-  vim.cmd("edit " .. vim.fn.fnameescape(dest))
+  -- 未保存scratchを保護するため新規タブで開く
+  vim.cmd("tabnew " .. vim.fn.fnameescape(dest))
   vim.api.nvim_buf_set_lines(0, 0, -1, false, content)
   vim.notify("Sanitize secrets, then :w to commit-ready file.", vim.log.levels.WARN)
   local scratch_path = current
