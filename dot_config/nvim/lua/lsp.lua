@@ -1,18 +1,22 @@
--- LSPの基本設定（vim.lsp.configベース）
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+-- LSPの基本設定（mason + vim.lsp.config）
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local on_attach = function(_, bufnr)
   local bufmap = function(mode, lhs, rhs, desc)
     vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
   end
 
-  -- 定義ジャンプなど
   bufmap("n", "<leader>d", vim.lsp.buf.definition, "Go to definition")
   bufmap("n", "gr", vim.lsp.buf.references, "Find references")
   bufmap("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
   bufmap("n", "<leader>D", vim.lsp.buf.type_definition, "Go to type definition")
 end
+
+require("mason").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = { "ts_ls", "lua_ls", "biome", "jsonnet_ls" },
+  automatic_installation = true,
+})
 
 local function setup(server, opts)
   local defaults = {
