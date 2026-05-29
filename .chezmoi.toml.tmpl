@@ -1,7 +1,12 @@
-# chezmoi configuration
+{{- /* `chezmoi init` 時にプロンプトし、その値を ~/.config/chezmoi/chezmoi.toml に保存する */ -}}
+{{- $name := promptStringOnce . "name" "Full name (git user.name)" -}}
+{{- $email := promptStringOnce . "email" "Email (git user.email)" -}}
+{{- $work := promptBoolOnce . "work" "Enable work-specific gitconfig?" false -}}
+
 [data]
-    email = "{{ .email }}"
-    name = "{{ .name }}"
+    name = {{ $name | quote }}
+    email = {{ $email | quote }}
+    work = {{ $work }}
 
 [diff]
     exclude = ["scripts"]
