@@ -15,6 +15,7 @@ require("lazy_init")
 require("styles")
 require("completions")
 require("format")
+require("scratch")
 
 vim.api.nvim_set_keymap(
   "n",
