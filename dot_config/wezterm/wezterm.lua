@@ -34,7 +34,8 @@ return {
   },
   font_size = 10,
   color_scheme = "FishTank",
-  window_background_opacity = 0.85,
+  window_background_opacity = 0.7,
+  macos_window_background_blur = 50,
   inactive_pane_hsb = {
     saturation = 0.7,
     brightness = 0.8,
@@ -44,5 +45,11 @@ return {
   },
   tab_bar_at_bottom = true,
   tab_bar_style = tab_bar_style_settings,
+  window_frame = {
+   inactive_titlebar_bg = "none",
+   active_titlebar_bg = "none",
+  },
   window_decorations = "RESIZE",
+  show_new_tab_button_in_tab_bar = false,
+  show_close_tab_button_in_tabs = false,
 }
