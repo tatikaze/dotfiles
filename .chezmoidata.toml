@@ -1,18 +1,8 @@
-# chezmoi data template
-# Run `chezmoi init` to populate these values
-# Or create ~/.config/chezmoi/chezmoi.toml with your actual values
+# chezmoi static data — マージ先はテンプレート変数の root namespace
+# 個人情報 (name/email/work) は .chezmoi.toml.tmpl から `chezmoi init` 時にプロンプト取得する
 
-[data]
-    email = "your-email@example.com"
-    name = "Your Name"
+[darwin]
+    homebrew_prefix = "/opt/homebrew"
 
-    # Work configuration (optional)
-    work = false
-    work_email = "work@company.com"
-
-    # Platform-specific settings
-    [data.darwin]
-        homebrew_prefix = "/opt/homebrew"
-
-    [data.linux]
-        homebrew_prefix = "/home/linuxbrew/.linuxbrew"
+[linux]
+    homebrew_prefix = "/home/linuxbrew/.linuxbrew"
