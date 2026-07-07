@@ -1,0 +1,4 @@
+# herdr移行に伴い、weztermのマルチプレクサ用設定は廃止。
+# ソースから削除しただけでは既存ターゲットに残るためここで明示削除する。
+.config/wezterm/custom_key_bindings.lua
+.config/wezterm/tab_bar_style_settings.lua
