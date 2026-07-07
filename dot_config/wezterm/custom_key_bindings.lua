@@ -83,4 +83,9 @@ return {
     mods = "LEADER",
     action = act({ SendString = "tty-clock -c -C 3\x0D" }),
   },
+  {
+    key = " ",
+    mods = "LEADER",
+    action = act.ShowLauncherArgs({ flags = "FUZZY|TABS", title = "Switch tab" }),
+  },
 }
