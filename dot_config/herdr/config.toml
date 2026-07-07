@@ -13,8 +13,8 @@ shell_mode = "auto"
 new_cwd = "follow"
 
 [keys]
-# prefix は旧 wezterm の Ctrl+s から Ctrl+a へ変更 (ユーザ確定)。
-prefix = "ctrl+a"
+# prefix は旧 wezterm と同じ Ctrl+s。
+prefix = "ctrl+s"
 
 # --- ペイン移動 (旧: LEADER+hjkl / ActivatePaneDirection) ---
 focus_pane_left = "prefix+h"
