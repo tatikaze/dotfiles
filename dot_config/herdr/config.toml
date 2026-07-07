@@ -1,0 +1,66 @@
+# herdr configuration
+# Deployed by chezmoi to ~/.config/herdr/config.toml
+#
+# 役割分担: herdr がワークスペース/タブ/ペイン/セッションを管理し、
+# wezterm はレンダリング層に専念する。旧 wezterm のマルチプレクサ操作を
+# ここへ移植している (prefix と hjkl 移動 / 分割 / タブ / リサイズ)。
+
+[terminal]
+# 新規ペインは $SHELL (= fish) を login モードで起動する。
+# shell_mode "auto" は macOS で login shell を使う。
+shell_mode = "auto"
+# 新規ペイン/タブ/ワークスペースは元ペインの cwd を継承する。
+new_cwd = "follow"
+
+[keys]
+# prefix は旧 wezterm の Ctrl+s から Ctrl+a へ変更 (ユーザ確定)。
+prefix = "ctrl+a"
+
+# --- ペイン移動 (旧: LEADER+hjkl / ActivatePaneDirection) ---
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+
+# --- ペイン分割 (旧: LEADER+- / LEADER+|) ---
+# herdr の pane split は --direction right(左右) / down(上下) の2種。
+# 旧 wezterm では `-`=SplitVertical=上下, `|`=SplitHorizontal=左右 だった。
+# split_horizontal を minus に置くことで `-`→上下 の筋肉記憶を維持する。
+# 左右分割は `|` (pipe) が端末依存で不安定なため herdr 既定の `v` を採用。
+# 注意: もし実挙動で向きが逆だったら下の2行を入れ替えること。
+split_horizontal = "prefix+minus"  # 上下 (旧 `-`)
+split_vertical = "prefix+v"        # 左右 (旧 `|` の代替)
+close_pane = "prefix+x"
+
+# --- リサイズ (旧: LEADER+r で resize_pane key_table) ---
+# resize_mode 中は h/j/k/l または矢印でサイズ調整。
+resize_mode = "prefix+r"
+
+# --- タブ (旧: LEADER+c / p / n) ---
+new_tab = "prefix+c"
+previous_tab = "prefix+p"
+next_tab = "prefix+n"
+switch_tab = "prefix+1..9"
+
+# --- ワークスペース/セッション ---
+# 旧 LEADER+Space の fuzzy tab launcher の代替。herdr に fuzzy tab picker は
+# 無いため、最も近い一覧ピッカーである workspace_picker を Space に割り当てる。
+workspace_picker = "prefix+space"
+new_workspace = "prefix+shift+n"
+detach = "prefix+q"
+toggle_sidebar = "prefix+b"
+
+# --- カスタムコマンド ---
+# tty-clock (旧: LEADER+t)。一時ペインで起動し、終了で閉じる。
+[[keys.command]]
+key = "prefix+t"
+type = "pane"
+command = "tty-clock -c -C 3"
+
+# 3ペイン開発レイアウト (旧: gui-startup の自動3分割 / LEADER+i の代替)。
+# herdr はセッションを永続化するため毎回の自動分割は不要。必要時に prefix+i で
+# 現在のタブを 3 ペイン (左メイン + 右上下) に整える。
+[[keys.command]]
+key = "prefix+i"
+type = "shell"
+command = "~/.config/herdr/layout-dev.sh"

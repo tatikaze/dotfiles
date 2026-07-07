@@ -6,8 +6,9 @@ macOS環境のdotfiles管理リポジトリ（chezmoi使用）
 
 - **Fish Shell**: モダンなシェル環境とプラグイン
 - **Neovim**: Lazy.nvimベースのエディタ設定
-- **Wezterm**: GPU加速ターミナルエミュレータ
-- **tmux**: ターミナルマルチプレクサ
+- **Wezterm**: GPU加速ターミナルエミュレータ（レンダリング層。ワークスペース/タブ/ペインはherdrが担当）
+- **herdr**: ターミナルマルチプレクサ（ワークスペース/タブ/ペイン/セッション管理・キーバインド）
+- **tmux**: ターミナルマルチプレクサ（レガシー）
 - その他: `.editorconfig`など
 
 ## 🚀 セットアップ
@@ -146,7 +147,8 @@ chezmoi add --encrypt ~/.ssh/config
 ## 🛠️ インストールされるツール
 
 - **fish**: モダンシェル
-- **tmux**: ターミナルマルチプレクサ
+- **herdr**: ターミナルマルチプレクサ（ワークスペース/タブ/ペイン管理）
+- **tmux**: ターミナルマルチプレクサ（レガシー）
 - **neovim**: モダンなVimエディタ
 - **eza**: 高機能なlsの代替
 - **bat**: catの代替（シンタックスハイライト付き）
@@ -174,6 +176,7 @@ chezmoi add --encrypt ~/.ssh/config
 - [Fish Shell](https://fishshell.com/)
 - [Neovim](https://neovim.io/)
 - [Wezterm](https://wezfurlong.org/wezterm/)
+- [herdr](https://herdr.dev/)
 
 ## ⚠️ 移行について
 
