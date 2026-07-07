@@ -39,7 +39,16 @@ resize_mode = "prefix+r"
 new_tab = "prefix+c"
 previous_tab = "prefix+p"
 next_tab = "prefix+n"
-switch_tab = "prefix+1..9"
+# 番号ジャンプの一等地 (prefix+1..9) はエージェントへ譲り、タブは shift 側へ。
+switch_tab = "prefix+shift+1..9"
+
+# --- エージェント選択 ---
+# sidebar のエージェント行へ番号でジャンプする。並びは priority
+# ([ui].agent_panel_sort) なので 1 = いま最も対応が必要なエージェント。
+focus_agent = "prefix+1..9"
+# 巡回。既定 copy_mode (prefix+[) と衝突するため [/] ではなく ,/. を使う。
+previous_agent = "prefix+,"
+next_agent = "prefix+."
 
 # --- ワークスペース/セッション ---
 # 旧 LEADER+Space の fuzzy tab launcher の代替。herdr に fuzzy tab picker は
@@ -48,6 +57,11 @@ workspace_picker = "prefix+space"
 new_workspace = "prefix+shift+n"
 detach = "prefix+q"
 toggle_sidebar = "prefix+b"
+
+[ui]
+# エージェントパネルを要対応順 (blocked/入力待ちが先頭) で並べる。
+# focus_agent の番号は常に「1 = いま見るべきエージェント」を指す。
+agent_panel_sort = "priority"
 
 # --- カスタムコマンド ---
 # tty-clock (旧: LEADER+t)。一時ペインで起動し、終了で閉じる。
