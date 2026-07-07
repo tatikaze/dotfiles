@@ -25,11 +25,10 @@ focus_pane_right = "prefix+l"
 # --- ペイン分割 (旧: LEADER+- / LEADER+|) ---
 # herdr の pane split は --direction right(左右) / down(上下) の2種。
 # 旧 wezterm では `-`=SplitVertical=上下, `|`=SplitHorizontal=左右 だった。
-# split_horizontal を minus に置くことで `-`→上下 の筋肉記憶を維持する。
-# 左右分割は `|` (pipe) が端末依存で不安定なため herdr 既定の `v` を採用。
+# 旧配置どおり `-`→上下 / `|`→左右 を維持する (pipe はリテラル "|" で受理される)。
 # 注意: もし実挙動で向きが逆だったら下の2行を入れ替えること。
 split_horizontal = "prefix+minus"  # 上下 (旧 `-`)
-split_vertical = "prefix+v"        # 左右 (旧 `|` の代替)
+split_vertical = "prefix+|"        # 左右 (旧 `|`)
 close_pane = "prefix+x"
 
 # --- リサイズ (旧: LEADER+r で resize_pane key_table) ---
