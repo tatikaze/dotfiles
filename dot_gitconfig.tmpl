@@ -50,7 +50,7 @@
 [ghq]
     root = ~/.ghq
 
-{{- if .work }}
+{{- if and (hasKey . "work") .work }}
 # Work-specific configuration
 [includeIf "gitdir:~/work/"]
     path = ~/.gitconfig-work
