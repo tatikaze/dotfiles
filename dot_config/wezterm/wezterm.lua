@@ -4,12 +4,11 @@ local wezterm = require("wezterm")
 -- ワークスペース/タブ/ペイン/セッションとキーバインドは herdr が担当する
 -- (~/.config/herdr/config.toml)。起動時に herdr へ自動 attach する。
 
-return {
+local config = {
   -- 起動でそのまま herdr の永続セッションへ attach / 生成する。
   default_prog = { "herdr" },
 
-  -- タブ/ペインは herdr が描画するため wezterm 側のタブバーは無効化する。
-  enable_tab_bar = false,
+  -- 最下部の情報バーは ai_status.lua で設定する。
 
   font_size = 10,
   color_scheme = "FishTank",
@@ -21,3 +20,6 @@ return {
   },
   window_decorations = "RESIZE",
 }
+
+require("ai_status").apply(config)
+return config
